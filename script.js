@@ -1,3 +1,4 @@
+//functions to to mathematical arithmetic
 function add(a, b) {
 	return a+b;
 };
@@ -14,12 +15,16 @@ function divide(a, b) {
     return a/b;
 };
 
-const varA = 0;
-const varB = 0;
-const optor = 0;
+//global variables
+let numA = 0;
+let numB = 0;
+let operator = "";
+let toggle = 0;
 
+//function to create switch cases to call
+//a mathematical function depending on the
+//operator used
 function operate(op, a, b){
-
     switch(op){
         case "+": 
             console.log("add here");
@@ -29,7 +34,7 @@ function operate(op, a, b){
             console.log("substract here");
             subtract(a,b);
             break;
-        case "*":
+        case "*" || "x":
             console.log("multiply here");
             multiply(a,b);
             break;
@@ -41,20 +46,18 @@ function operate(op, a, b){
             console.log("enter other op");
     }
 }
+
 //function to find and select display of html
 const display = document.querySelector("#display");
 //function to find and select container of html
 //here the number and operator button will be stored
 const container = document.querySelector("#container");
-const DISPLAY_SIZE = container.offsetWidth; //get container size from css file
 
 //create display for result of operations
 const result = document.createElement("div");
-result.textContent = "show result"
-display.appendChild(result);
 
 //function to create buttons for all the numbers and operators
-function createNumbers(){
+function createCalc(){
     //to create a 4x5 array buttons 
     for(let i = 0; i < 16; i++){
         const btn = document.createElement("button");
@@ -80,15 +83,33 @@ function createNumbers(){
         else{
             btn.textContent = "c";
         }
-
         //function to add listener once a button is clicked
         btn.addEventListener("click", () => {
-            console.log(btn.textContent);
-        }); 
+            let btnPress = btn.textContent;
+            result.textContent = btnPress;
+            if(btnPress === "+" || btnPress === "-" || btnPress === "x" || btnPress === "/" || btnPress === "=" || btnPress === "c"){
+                operator = btnPress;
+                alert("operator");
+            }
+            else if(!toggle){
+                numA = btnPress;
+                toggle = 1;
+                alert("numA");
+            }
+            else if(toggle){
+                numB = btnPress;
+                toggle = 0;
+                alert("numB");
+            }
 
+            console.log(btnPress);
+        });
+        //after creating the buttons append buttons to container
         container.appendChild(btn);
     }
 }
+// result.textContent = "show result"
+display.appendChild(result);
 //call function to display all numbers and operators
-createNumbers();
+createCalc();
 
