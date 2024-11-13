@@ -86,10 +86,12 @@ function createCalc(){
         //function to add listener once a button is clicked
         btn.addEventListener("click", () => {
             let btnPress = btn.textContent;
-            result.textContent = btnPress;
-            if(btnPress === "+" || btnPress === "-" || btnPress === "x" || btnPress === "/" || btnPress === "=" || btnPress === "c"){
+            if(btnPress === "+" || btnPress === "-" || btnPress === "x" || btnPress === "/" || btnPress === "c"){
                 operator = btnPress;
                 alert("operator");
+            }
+            else if(btnPress === "="){
+                alert("show result");
             }
             else if(!toggle){
                 numA = btnPress;
@@ -101,6 +103,8 @@ function createCalc(){
                 toggle = 0;
                 alert("numB");
             }
+            //show what has been pressed on the screen
+            result.textContent = btnPress;
 
             console.log(btnPress);
         });
