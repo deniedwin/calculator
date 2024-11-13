@@ -18,7 +18,8 @@ function divide(a, b) {
 //global variables
 let numA = "";
 let numB = "";
-let operator = "_";
+let numResult = 0;
+let operator = "";
 let toggle = 0;
 
 //function to create switch cases to call
@@ -26,21 +27,18 @@ let toggle = 0;
 //operator used
 function operate(op, a, b){
     switch(op){
-        case "+": 
-            console.log("add here");
-            console.log(add(a,b));
+        case "+":
+            //1e2 is to round numbers to 2 digits after the comma/dot
+            numResult = Math.round(add(a,b) * 1e2) / 1e2;
             break;
         case "-":
-            console.log("substract here");
-            console.log(subtract(a,b));
+            numResult = Math.round(subtract(a,b) * 1e2) / 1e2;
             break;
         case "x":
-            console.log("multiply here");
-            console.log(multiply(a,b));
+            numResult = Math.round(multiply(a,b) * 1e2) / 1e2;
             break;
         case "/": 
-            console.log("divide here");
-            console.log(divide(a,b));
+            numResult = Math.round(divide(a,b) * 1e2) / 1e2;
             break;
         default:
             console.log("enter other op");
@@ -51,14 +49,13 @@ function operate(op, a, b){
 const display = document.querySelector("#display");
 //function to find and select container of html
 //here the number and operator button will be stored
-const container = document.querySelector("#container");
-
+const grid = document.querySelector("#grid");
 //create display for result of operations
 const result = document.createElement("div");
 
 //function to create buttons for all the numbers and operators
 function createCalc(){
-    //to create a 4x5 array buttons 
+    //to create a 4x4 array buttons 
     for(let i = 0; i < 16; i++){
         const btn = document.createElement("button");
         btn.classList.add("cell");
@@ -86,35 +83,44 @@ function createCalc(){
         //function to add listener once a button is clicked
         btn.addEventListener("click", () => {
             let btnPress = btn.textContent;
-            if(btnPress === "+" || btnPress === "-" || btnPress === "x" || btnPress === "/" || btnPress === "c"){
+            if(btnPress === "+" || btnPress === "-" || btnPress === "x" || btnPress === "/"){
                 operator = btnPress;
-                alert("operator");
+                toggle = 1;
             }
             else if(btnPress === "="){
-                alert("show result");
                 operate(operator, Number(numA), Number(numB));
+                result.textContent = numResult;
+                numA = numResult;
+                numB = "";
+                toggle = 1;
+            }
+            else if(btnPress === "c"){
+                numA = "";
+                numB = "";
+                operator = "";
+                toggle = 0;
+                numResult = 0;
+                result.textContent = "";
             }
             else if(!toggle){
-                numA = btnPress;
-                toggle = 1;
-                alert("numA");
+                //append the digit to numA if toggle is 0
+                numA += btnPress;
             }
             else if(toggle){
-                numB = btnPress;
-                toggle = 0;
-                alert("numB");
+                //append the digit to numB if toggle is 1
+                numB += btnPress;
             }
             //show what has been pressed on the screen
-            result.textContent = `${numA} ${operator} ${numB}`;
-
-            console.log(btnPress);
+            // Display the current input and operator
+            if (btnPress !== "=") {
+                result.textContent = `${numA} ${operator} ${numB}`;
+            }
         });
         //after creating the buttons append buttons to container
-        container.appendChild(btn);
+        grid.appendChild(btn);
     }
 }
-// result.textContent = "show result"
+//add display to div created
 display.appendChild(result);
 //call function to display all numbers and operators
 createCalc();
-

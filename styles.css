@@ -1,22 +1,36 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Full viewport height */
+    height: 100vh;
+    margin: 0;
+}
+
+#container{
+    width: 300px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* top bar to display numbers, operators and result once button is pressed */
 #display{
     font-size: 30px;
     height: 50px;
+    width: 100%;
+    background-color: lightgray;
+    text-align: right; /* Align text to the right */
 }
-
-#container {
+/* grid to show all the numbers and operator */
+#grid {
     display: flex;
     flex-wrap: wrap;
-    height: 300px;
-    width: 100%; /* Use 100% to allow it to adapt to the display width */
-    /* Distribute buttons evenly */
-    justify-content: space-between;
+    width: 100%;
+    height: auto;
+    justify-content: space-between; /* Distribute buttons evenly */
 }
-
+/* each cell of the grid */
 .cell {
     flex: 0 0 25%; /* Set each button to take up 25% of the row width for a 4x5 grid */
-    /* Keeps each button square */
-    aspect-ratio: 1;
-    /* border: 1px solid black; */
-    /* background-color: lightgray; */
-    /* text-align: center; */
+    aspect-ratio: 1; /* Keeps each button square */
 }
