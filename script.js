@@ -16,9 +16,9 @@ function divide(a, b) {
 };
 
 //global variables
-let numA = 0;
-let numB = 0;
-let operator = "";
+let numA = "";
+let numB = "";
+let operator = "_";
 let toggle = 0;
 
 //function to create switch cases to call
@@ -32,15 +32,15 @@ function operate(op, a, b){
             break;
         case "-":
             console.log("substract here");
-            subtract(a,b);
+            console.log(subtract(a,b));
             break;
-        case "*" || "x":
+        case "x":
             console.log("multiply here");
-            multiply(a,b);
+            console.log(multiply(a,b));
             break;
         case "/": 
             console.log("divide here");
-            divide(a,b);
+            console.log(divide(a,b));
             break;
         default:
             console.log("enter other op");
@@ -92,6 +92,7 @@ function createCalc(){
             }
             else if(btnPress === "="){
                 alert("show result");
+                operate(operator, Number(numA), Number(numB));
             }
             else if(!toggle){
                 numA = btnPress;
@@ -104,7 +105,7 @@ function createCalc(){
                 alert("numB");
             }
             //show what has been pressed on the screen
-            result.textContent = btnPress;
+            result.textContent = `${numA} ${operator} ${numB}`;
 
             console.log(btnPress);
         });
